@@ -7,8 +7,7 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
-    "deploy": "npm run generate && push-dir --dir=output/public --branch=gh-pages"
+    "postinstall": "nuxt prepare"
   },
   "dependencies": {
     "nuxt": "^3.14.159",

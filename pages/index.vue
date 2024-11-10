@@ -11,7 +11,8 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import WordDisplay from "~/components/WordDisplay.vue";
+import LanguageSelector from "../components/LanguageSelector.vue";
+import WordDisplay from "../components/WordDisplay.vue";
 
 
 const words = ref([])
