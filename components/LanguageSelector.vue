@@ -1,21 +1,30 @@
-<!-- components/LanguageSelector.vue -->
 <template>
   <div>
-    <label for="language-select">Sélectionnez la langue :</label>
-    <select id="language-select" v-model="selectedLanguage" @change="changeLanguage">
-      <option value="fr">Français</option>
-      <option value="ar">Arabe</option>
-    </select>
+    <Select
+        label="Sélectionnez une langue"
+        :options="languages"
+        v-model="selectedLanguage"
+        id="language-select"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineEmits, ref } from 'vue'
+import { ref, watch } from 'vue'
+import Select from "~/components/input/Select.vue";
 
+// Liste des options à passer dans le Select
+const languages = [
+  { label: 'Français', value: 'fr' },
+  { label: 'Arabe', value: 'ar' }
+]
 const emits = defineEmits(['updateLanguage'])
+// Variable liée au Select (via v-model)
 const selectedLanguage = ref('fr')
 
-function changeLanguage() {
+// Watcher pour surveiller la variable selectedLanguage
+watch(selectedLanguage, (newValue, oldValue) => {
+  // Émettre l'événement 'updateLanguage' avec la nouvelle valeur
   emits('updateLanguage', selectedLanguage.value)
-}
+})
 </script>

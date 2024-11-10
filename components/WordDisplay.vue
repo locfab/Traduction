@@ -1,28 +1,32 @@
-<!-- components/WordDisplay.vue -->
 <template>
   <div class="word-display">
     <p id="question-text">{{ questionText }}</p>
+
     <p id="answer-text" :style="{ color: isShowingAnswer ? 'black' : 'transparent' }">
       {{ answerText === '' ? 'vide' : answerText }}
     </p>
-    <button
-        :class="'toggle-button'"
-        @click="toggleAnswerOrNextWord"
+
+    <!-- Utilisation du composant Button -->
+    <Button
+        :onClick="toggleAnswerOrNextWord"
+        :color-class="'primary'"
     >
       {{ statusAnswersTotal ? 'Mot Suivant' : 'Voir la réponse'}}
-    </button>
-    <button
-        :class="'hint-button'"
-        @click="showHint"
+    </Button>
+
+    <Button
+        :onClick="showHint"
         :disabled="hintButtonDisabled"
+        :color-class="'secondary'"
     >
       Indice
-    </button>
+    </Button>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, watch, computed } from 'vue'
+import Button from "~/components/input/Button.vue";
 
 const props = defineProps(['words', 'language'])
 const questionText = ref('')
@@ -34,6 +38,8 @@ const statusAnswersTotal = ref(false)
 const currentWordIndex = ref(0)
 const word = computed(() => props.words[currentWordIndex.value])
 
+const userAnswer = ref(''); // Variable pour stocker la réponse de l'utilisateur
+
 function nextWord() {
   currentWordIndex.value = Math.floor(Math.random() * props.words.length)
   questionText.value = props.language === 'fr' ? word.value.fr : word.value.ar
@@ -41,6 +47,7 @@ function nextWord() {
   isShowingAnswer.value = false
   hintButtonDisabled.value = false
   statusAnswersTotal.value = false
+  userAnswer.value = ''; // Réinitialiser la réponse de l'utilisateur
 }
 
 function toggleAnswerOrNextWord() {
@@ -73,25 +80,5 @@ watch(() => props.language, nextWord, { immediate: true })
   font-size: 2em;
   margin-bottom: 15px;
 }
-.toggle-button {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  margin-bottom: 15px;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-.hint-button {
-  background-color: #FFA500;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  margin-top: 10px;
-  cursor: pointer;
-  border-radius: 5px;
-}
 #answer-text { font-size: 2em }
-
 </style>

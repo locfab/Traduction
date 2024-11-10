@@ -1,17 +1,21 @@
 <!-- pages/index.vue -->
 <template>
+  <div class="link-to-add">
+    <NuxtLink to="/add">Ajouter un enregistrement</NuxtLink>
+  </div>
   <div class="categories-container">
     <div
         v-for="file in files"
-        :class="['category', file === selectedFile ? 'selected' : '']"
+        :class="['category', isSelectedFile(file) ? 'selected' : '']"
         :key="file"
         @click="selectFile(file)">
-      <span>{{ file }}</span>
+      <span>{{ file }} </span>
     </div>
   </div>
   <div class="container">
     <h1>Apprendre le Darija</h1>
     <LanguageSelector @updateLanguage="updateLanguage" />
+
     <div v-if="words.length" >
       <WordDisplay :words="words" :language="currentLanguage" />
     </div>
@@ -25,16 +29,19 @@ import WordDisplay from "../components/WordDisplay.vue";
 
 const words = ref<Line[]>([])
 const currentLanguage = ref<string>('fr')
-const files = ref(["verbes_A-C.csv", "verbes_D-E.csv", "verbes_F-I.csv", "mots.csv"])
-const selectedFile = ref<string | null>(null)
+const files = ref<string[]>(["verbes_A-C.csv", "verbes_D-E.csv", "verbes_F-I.csv", "mots.csv"])
+const selectedFiles = ref<string[]>([...files.value]) // Spread operator to copy the array
+
+function selectFile(file: string) {
+  selectedFiles.value = isSelectedFile(file) ? selectedFiles.value.filter(sf => sf !== file) : [...selectedFiles.value, file]
+  loadCSV()
+}
 
 function updateLanguage(language: string) {
   currentLanguage.value = language
 }
-
-function selectFile(file: string) {
-  selectedFile.value = selectedFile.value === file ? null : file
-  loadCSV()
+function isSelectedFile(file: string) : boolean {
+  return selectedFiles.value.includes(file)
 }
 
 interface Line {
@@ -44,7 +51,7 @@ async function loadCSV() {
   words.value = []
 
   // Si aucun fichier n'est sélectionné, charger tous les fichiers
-  const filesToLoad = selectedFile.value ? [selectedFile.value] : files.value
+  const filesToLoad = selectedFiles.value.length ? selectedFiles.value : files.value
 
   for (const file of filesToLoad) {
     const response = await fetch(file)
@@ -62,9 +69,7 @@ function parseCSV(data: any) : Line[] {
 
 // Charger les fichiers si aucun fichier n'est sélectionné
 onMounted(() => {
-  if (!selectedFile.value) {
-    loadCSV()
-  }
+  loadCSV()
 })
 </script>
 <style>
@@ -79,6 +84,10 @@ onMounted(() => {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: 0 auto; /* Centrer horizontalement */
   box-sizing: border-box; /* Assurer que padding ne dépasse pas de la taille spécifiée */
+}
+
+.link-to-add {
+  text-align: center;
 }
 
 /* Conteneur pour les catégories */

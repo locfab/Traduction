@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: true, // active le rendu côté serveur, tu peux le mettre à `false` pour le rendu côté client
   css: [
-    // Ajoute tes fichiers CSS ou bibliothèques ici
+    '@fortawesome/fontawesome-free/css/all.css',
   ],
   modules: [
     // Ajoute les modules ici si nécessaire
