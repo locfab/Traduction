@@ -25,7 +25,7 @@ import WordDisplay from "../components/WordDisplay.vue";
 
 const words = ref<Line[]>([])
 const currentLanguage = ref<string>('fr')
-const files = ref(["verbes_A-C.csv", "verbes_D-E.csv", "mots.csv"])
+const files = ref(["verbes_A-C.csv", "verbes_D-E.csv", "verbes_F-I.csv", "mots.csv"])
 const selectedFile = ref<string | null>(null)
 
 function updateLanguage(language: string) {
@@ -33,7 +33,7 @@ function updateLanguage(language: string) {
 }
 
 function selectFile(file: string) {
-  selectedFile.value = file
+  selectedFile.value = selectedFile.value === file ? null : file
   loadCSV()
 }
 
