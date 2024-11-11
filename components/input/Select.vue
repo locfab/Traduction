@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineEmits } from 'vue'
+import { ref } from 'vue'
 
 // Propriétés du composant
 const props = defineProps({

@@ -28,7 +28,7 @@
 import { ref, watch, computed } from 'vue'
 import Button from "~/components/input/Button.vue";
 
-const props = defineProps(['words', 'language'])
+const props = defineProps(['words', 'language', 'isRandom'])
 const questionText = ref('')
 const answerText = ref('')
 const isShowingAnswer = ref(false)
@@ -41,7 +41,7 @@ const word = computed(() => props.words[currentWordIndex.value])
 const userAnswer = ref(''); // Variable pour stocker la réponse de l'utilisateur
 
 function nextWord() {
-  currentWordIndex.value = Math.floor(Math.random() * props.words.length)
+  currentWordIndex.value = props.isRandom ? Math.floor(Math.random() * props.words.length) : (currentWordIndex.value + 1) % props.words.length
   questionText.value = props.language === 'fr' ? word.value.fr : word.value.ar
   answerText.value = ''
   isShowingAnswer.value = false

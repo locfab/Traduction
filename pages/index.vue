@@ -12,12 +12,19 @@
       <span>{{ file }} </span>
     </div>
   </div>
+  <div class="random">
+    <CheckBox
+        id="random"
+        label="Aleatoire"
+        v-model="isRandom"
+    />
+  </div>
   <div class="container">
     <h1>Apprendre le Darija</h1>
     <LanguageSelector @updateLanguage="updateLanguage" />
 
     <div v-if="words.length" >
-      <WordDisplay :words="words" :language="currentLanguage" />
+      <WordDisplay :words="words" :language="currentLanguage" :isRandom="isRandom" />
     </div>
   </div>
 </template>
@@ -26,12 +33,14 @@
 import { ref, onMounted } from 'vue'
 import LanguageSelector from "../components/LanguageSelector.vue";
 import WordDisplay from "../components/WordDisplay.vue";
+import CheckBox from "~/components/input/CheckBox.vue";
 
 const words = ref<Line[]>([])
 const currentLanguage = ref<string>('fr')
 const files = ref<string[]>(["verbes_A-C.csv", "verbes_D-E.csv", "verbes_F-I.csv", "mots1.csv", "mots2.csv"])
 const selectedFiles = ref<string[]>([]) // Spread operator to copy the array
 
+const isRandom = ref<boolean>(true)
 function selectFile(file: string) {
   selectedFiles.value = isSelectedFile(file) ? selectedFiles.value.filter(sf => sf !== file) : [...selectedFiles.value, file]
   loadCSV()
@@ -88,6 +97,10 @@ onMounted(() => {
 
 .link-to-add {
   text-align: center;
+}
+.random {
+  display: flex;
+  justify-content: center;
 }
 
 /* Conteneur pour les catégories */
