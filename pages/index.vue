@@ -29,8 +29,8 @@ import WordDisplay from "../components/WordDisplay.vue";
 
 const words = ref<Line[]>([])
 const currentLanguage = ref<string>('fr')
-const files = ref<string[]>(["verbes_A-C.csv", "verbes_D-E.csv", "verbes_F-I.csv", "mots.csv"])
-const selectedFiles = ref<string[]>([...files.value]) // Spread operator to copy the array
+const files = ref<string[]>(["verbes_A-C.csv", "verbes_D-E.csv", "verbes_F-I.csv", "mots1.csv", "mots2.csv"])
+const selectedFiles = ref<string[]>([]) // Spread operator to copy the array
 
 function selectFile(file: string) {
   selectedFiles.value = isSelectedFile(file) ? selectedFiles.value.filter(sf => sf !== file) : [...selectedFiles.value, file]
@@ -62,7 +62,7 @@ async function loadCSV() {
 
 function parseCSV(data: any) : Line[] {
   return data.trim().split('\n').map((line : string) => {
-    const [fr, phonetic, ar] = line.split(';')
+    const [fr, phonetic, ar] = line.trim().split(';')
     return { fr: fr, phonetic: phonetic, ar: ar }
   })
 }
