@@ -133,7 +133,7 @@ onMounted(() => {
 /* Effet au survol */
 .category:hover {
   border: 2px solid #007BFF;
-  color: white;
+  color: black;
   transform: scale(1.05);
 }
 
