@@ -21,14 +21,18 @@
     >
       Indice
     </Button>
+    <div v-if="showIndex" class="ratio">
+      {{currentWordIndex}}/{{words.length}}
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, watch, computed } from 'vue'
 import Button from "~/components/input/Button.vue";
+import {filters} from "css-select";
 
-const props = defineProps(['words', 'language', 'isRandom'])
+const props = defineProps(['words', 'language', 'isRandom', 'showIndex'])
 const questionText = ref('')
 const answerText = ref('')
 const isShowingAnswer = ref(false)
@@ -82,4 +86,7 @@ watch(() => props.words, nextWord, { immediate: true })
   margin-bottom: 15px;
 }
 #answer-text { font-size: 2em }
+.ratio {
+  margin-top: 16px;
+}
 </style>

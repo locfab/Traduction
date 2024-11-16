@@ -11,17 +11,25 @@
       <span>{{ file }} </span>
     </div>
   </div>
-  <div class="random">
-    <CheckBox
-        id="random"
-        label="Aléatoire"
-        v-model="isRandom"
-    />
+  <div class="options">
+    <div class="random">
+      <CheckBox
+          id="random"
+          label="Aléatoire"
+          v-model="isRandom"
+      />
+    </div>
+    <div class="show-index">
+      <CheckBox
+          id="show-index"
+          label="Stat"
+          v-model="showIndex"
+      />
+    </div>
   </div>
   <div class="container">
     <h1>Apprendre le Darija</h1>
     <LanguageSelector @updateLanguage="updateLanguage" />
-
     <div class="search-container">
       <InputText
           id="search"
@@ -32,7 +40,7 @@
     </div>
 
     <div v-if="filteredWords.length">
-      <WordDisplay :words="filteredWords" :language="currentLanguage" :isRandom="isRandom" />
+      <WordDisplay :words="filteredWords" :language="currentLanguage" :isRandom="isRandom" :showIndex="showIndex" />
     </div>
   </div>
 </template>
@@ -49,6 +57,7 @@ const currentLanguage = ref<string>('fr');
 const files = ref<string[]>(["verbes_A-E.csv", "verbes_F-I.csv", "verbes_J-O.csv", "mots1.csv", "mots2.csv", "mots3.csv", "interrogation.csv", "expressions.csv"]);
 const selectedFiles = ref<string[]>([]); // Spread operator to copy the array
 const isRandom = ref<boolean>(true);
+const showIndex = ref<boolean>(false);
 const search = ref<string>(''); // Variable pour la recherche
 
 // Fonction pour sélectionner un fichier
@@ -126,7 +135,7 @@ onMounted(() => {
 .link-to-add {
   text-align: center;
 }
-.random {
+.options {
   display: flex;
   justify-content: center;
 }
