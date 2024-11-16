@@ -37,7 +37,7 @@ import CheckBox from "~/components/input/CheckBox.vue";
 
 const words = ref<Line[]>([])
 const currentLanguage = ref<string>('fr')
-const files = ref<string[]>(["verbes_A-E.csv", "verbes_F-I.csv", "verbes_J-O.csv", "mots1.csv", "mots2.csv", "mots3.csv",  "interrogation.csv"])
+const files = ref<string[]>(["verbes_A-E.csv", "verbes_F-I.csv", "verbes_J-O.csv", "mots1.csv", "mots2.csv", "mots3.csv",  "interrogation.csv", "expressions.csv"])
 const selectedFiles = ref<string[]>([]) // Spread operator to copy the array
 
 const isRandom = ref<boolean>(true)
