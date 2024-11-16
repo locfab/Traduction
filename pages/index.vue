@@ -85,15 +85,17 @@ interface Line {
 
 // Charger les fichiers CSV
 async function loadCSV() {
-  words.value = [];
+  const tempWords = []; // Accumule les mots temporairement
 
   const filesToLoad = selectedFiles.value.length ? selectedFiles.value : files.value;
 
   for (const file of filesToLoad) {
     const response = await fetch(file);
     const data = await response.text();
-    words.value = [...words.value, ...parseCSV(data)];
+    tempWords.push(...parseCSV(data)); // Ajoute les nouveaux mots dans le tableau temporaire
   }
+
+  words.value = tempWords; // Mise à jour unique
 }
 
 function parseCSV(data: any) : Line[] {
@@ -103,11 +105,16 @@ function parseCSV(data: any) : Line[] {
   });
 }
 
+function normalizeString(str: string) {
+  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+}
+
 const filteredWords = computed(() => {
   return words.value.filter(word => {
-    return word.fr.toLowerCase().includes(search.value.toLowerCase()) ||
-        word.ar.toLowerCase().includes(search.value.toLowerCase()) ||
-        word.phonetic.toLowerCase().includes(search.value.toLowerCase());
+    const normalizedSearch = normalizeString(search.value);
+    return normalizeString(word.fr).includes(normalizedSearch) ||
+        normalizeString(word.ar).includes(normalizedSearch) ||
+        normalizeString(word.phonetic).includes(normalizedSearch);
   });
 });
 
