@@ -163,8 +163,8 @@ onMounted(() => {
 .category {
   background-color: #f1f1f1;
   border: 2px solid #ccc;
-  padding: 15px 30px;
-  border-radius: 8px;
+  padding: 8px 16px;
+  border-radius: 4px;
   font-size: 16px;
   font-weight: 600;
   text-align: center;
@@ -192,6 +192,9 @@ onMounted(() => {
 .category span {
   display: block;
   text-align: center;
+}
+.show-index{
+  margin-left: 8px;
 }
 
 /* Responsive Design pour mobile */
