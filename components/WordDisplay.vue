@@ -70,6 +70,7 @@ function showHint() {
 }
 
 watch(() => props.language, nextWord, { immediate: true })
+watch(() => props.words, nextWord, { immediate: true })
 </script>
 
 <style scoped>

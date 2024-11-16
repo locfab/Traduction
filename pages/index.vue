@@ -1,4 +1,3 @@
-<!-- pages/index.vue -->
 <template>
   <div class="link-to-add">
     <NuxtLink to="/add">Ajouter un enregistrement</NuxtLink>
@@ -15,7 +14,7 @@
   <div class="random">
     <CheckBox
         id="random"
-        label="Aleatoire"
+        label="Aléatoire"
         v-model="isRandom"
     />
   </div>
@@ -23,64 +22,93 @@
     <h1>Apprendre le Darija</h1>
     <LanguageSelector @updateLanguage="updateLanguage" />
 
-    <div v-if="words.length" >
-      <WordDisplay :words="words" :language="currentLanguage" :isRandom="isRandom" />
+    <div class="search-container">
+      <InputText
+          id="search"
+          label="Recherche"
+          v-model="search"
+          placeholder="Rechercher"
+      />
+    </div>
+
+    <div v-if="filteredWords.length">
+      <WordDisplay :words="filteredWords" :language="currentLanguage" :isRandom="isRandom" />
     </div>
   </div>
 </template>
 
+
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue';
 import LanguageSelector from "../components/LanguageSelector.vue";
 import WordDisplay from "../components/WordDisplay.vue";
 import CheckBox from "~/components/input/CheckBox.vue";
 
-const words = ref<Line[]>([])
-const currentLanguage = ref<string>('fr')
-const files = ref<string[]>(["verbes_A-E.csv", "verbes_F-I.csv", "verbes_J-O.csv", "mots1.csv", "mots2.csv", "mots3.csv",  "interrogation.csv", "expressions.csv"])
-const selectedFiles = ref<string[]>([]) // Spread operator to copy the array
+const words = ref<Line[]>([]);
+const currentLanguage = ref<string>('fr');
+const files = ref<string[]>(["verbes_A-E.csv", "verbes_F-I.csv", "verbes_J-O.csv", "mots1.csv", "mots2.csv", "mots3.csv", "interrogation.csv", "expressions.csv"]);
+const selectedFiles = ref<string[]>([]); // Spread operator to copy the array
+const isRandom = ref<boolean>(true);
+const search = ref<string>(''); // Variable pour la recherche
 
-const isRandom = ref<boolean>(true)
+// Fonction pour sélectionner un fichier
 function selectFile(file: string) {
-  selectedFiles.value = isSelectedFile(file) ? selectedFiles.value.filter(sf => sf !== file) : [...selectedFiles.value, file]
-  loadCSV()
+  selectedFiles.value = isSelectedFile(file) ? selectedFiles.value.filter(sf => sf !== file) : [...selectedFiles.value, file];
+  loadCSV();
 }
 
+// Fonction pour changer la langue
 function updateLanguage(language: string) {
-  currentLanguage.value = language
-}
-function isSelectedFile(file: string) : boolean {
-  return selectedFiles.value.includes(file)
+  currentLanguage.value = language;
 }
 
+// Fonction pour vérifier si un fichier est sélectionné
+function isSelectedFile(file: string): boolean {
+  return selectedFiles.value.includes(file);
+}
+
+// Interface de structure de ligne
 interface Line {
-  fr: string, phonetic: string, ar: string
+  fr: string;
+  phonetic: string;
+  ar: string;
 }
-async function loadCSV() {
-  words.value = []
 
-  // Si aucun fichier n'est sélectionné, charger tous les fichiers
-  const filesToLoad = selectedFiles.value.length ? selectedFiles.value : files.value
+// Charger les fichiers CSV
+async function loadCSV() {
+  words.value = [];
+
+  const filesToLoad = selectedFiles.value.length ? selectedFiles.value : files.value;
 
   for (const file of filesToLoad) {
-    const response = await fetch(file)
-    const data = await response.text()
-    words.value = [...words.value, ...parseCSV(data)]
+    const response = await fetch(file);
+    const data = await response.text();
+    words.value = [...words.value, ...parseCSV(data)];
   }
 }
 
 function parseCSV(data: any) : Line[] {
-  return data.trim().split('\n').map((line : string) => {
-    const [fr, phonetic, ar] = line.trim().split(';')
-    return { fr: fr, phonetic: phonetic, ar: ar }
-  })
+  return data.trim().split('\n').map((line: string) => {
+    const [fr, phonetic, ar] = line.trim().split(';');
+    return { fr: fr, phonetic: phonetic, ar: ar };
+  });
 }
 
-// Charger les fichiers si aucun fichier n'est sélectionné
+const filteredWords = computed(() => {
+  return words.value.filter(word => {
+    return word.fr.toLowerCase().includes(search.value.toLowerCase()) ||
+        word.ar.toLowerCase().includes(search.value.toLowerCase()) ||
+        word.phonetic.toLowerCase().includes(search.value.toLowerCase());
+  });
+});
+
+// Charger les fichiers au montage du composant
 onMounted(() => {
-  loadCSV()
-})
+  loadCSV();
+});
+
 </script>
+
 <style>
 /* Conteneur principal */
 .container {
