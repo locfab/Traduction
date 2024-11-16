@@ -1,21 +1,31 @@
-<!-- components/InputText.vue -->
 <template>
   <div class="input-group">
     <label :for="id">{{ label }}</label>
-    <input
-        v-model="inputValue"
-        :id="id"
-        :placeholder="placeholder"
-        :required="required"
-        :type="type"
-    />
+    <div class="input-wrapper">
+      <input
+          v-model="inputValue"
+          :id="id"
+          :placeholder="placeholder"
+          :required="required"
+          :type="type"
+      />
+      <button
+          v-if="inputValue"
+          type="button"
+          class="clear-button"
+          @click="clearInput"
+          aria-label="Effacer la valeur"
+      >
+        &times;
+      </button>
+    </div>
   </div>
 </template>
+
 
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 
-// Définir les propriétés acceptées par le composant
 const props = defineProps({
   id: {
     type: String,
@@ -43,17 +53,20 @@ const props = defineProps({
   },
 });
 
-// Lier la valeur d'entrée à une variable locale
 const inputValue = ref(props.modelValue);
 
-// Émettre un événement lorsque la valeur change (pour maintenir la liaison v-model)
 watch(inputValue, (newValue) => {
   emit('update:modelValue', newValue);
 });
 
-// Définir l'événement d'émission
 const emit = defineEmits();
+
+const clearInput = () => {
+  inputValue.value = '';
+  emit('update:modelValue', '');
+};
 </script>
+
 
 <style scoped>
 .input-group {
@@ -62,12 +75,14 @@ const emit = defineEmits();
   gap: 5px;
 }
 
-label {
-  font-size: 14px;
-  color: #555;
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
 input {
+  flex: 1;
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
@@ -78,5 +93,20 @@ input {
 
 input:focus {
   border-color: #4CAF50;
+}
+
+.clear-button {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #888;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.clear-button:hover {
+  color: #555;
 }
 </style>
