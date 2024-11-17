@@ -39,13 +39,13 @@ interface Response {
   phonetic: string,
 
 }
-const props = defineProps(['words', 'language', 'isRandom', 'showIndex'])
+const props = defineProps(['words', 'language', 'isRandom', 'showIndex', 'visibleAnswers'])
 const NULL_ANSWER_TEXT : Response = { trad: '', phonetic: ''}
 const questionText = ref('')
 const answerText = ref(NULL_ANSWER_TEXT)
-const isShowingAnswer = ref(false)
+const isShowingAnswer = ref(props.visibleAnswers)
+const statusAnswersTotal = ref(props.visibleAnswers)
 const hintButtonDisabled = ref(false)
-const statusAnswersTotal = ref(false)
 
 const currentWordIndex = ref(0)
 const word = computed(() => props.words[currentWordIndex.value])
@@ -53,10 +53,11 @@ const word = computed(() => props.words[currentWordIndex.value])
 function nextWord() {
   currentWordIndex.value = props.isRandom ? Math.floor(Math.random() * props.words.length) : (currentWordIndex.value + 1) % props.words.length
   questionText.value = props.language === 'fr' ? word.value.fr : word.value.ar
-  answerText.value = {...NULL_ANSWER_TEXT}
-  isShowingAnswer.value = false
+  const answer = {trad: props.language === 'fr' ? word.value.ar : word.value.fr, phonetic: word.value.phonetic}
+  answerText.value = props.visibleAnswers ? {...answer } : {...NULL_ANSWER_TEXT}
+  isShowingAnswer.value = props.visibleAnswers
+  statusAnswersTotal.value = props.visibleAnswers
   hintButtonDisabled.value = false
-  statusAnswersTotal.value = false
 }
 
 function toggleAnswerOrNextWord() {
@@ -80,6 +81,7 @@ function showHint() {
 
 watch(() => props.language, nextWord, { immediate: true })
 watch(() => props.words, nextWord, { immediate: true })
+watch(() => props.visibleAnswers, nextWord, { immediate: true })
 </script>
 
 <style scoped>

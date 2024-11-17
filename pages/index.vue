@@ -26,6 +26,13 @@
           v-model="showIndex"
       />
     </div>
+    <div class="all-visible">
+      <CheckBox
+          id="all-visible"
+          label="All visible"
+          v-model="visibleAnswers"
+      />
+    </div>
   </div>
   <div class="container">
     <h1>Apprendre le Darija</h1>
@@ -40,7 +47,13 @@
     </div>
 
     <div v-if="filteredWords.length">
-      <WordDisplay :words="filteredWords" :language="currentLanguage" :isRandom="isRandom" :showIndex="showIndex" />
+      <WordDisplay
+          :words="filteredWords"
+          :language="currentLanguage"
+          :isRandom="isRandom"
+          :showIndex="showIndex"
+          :visibleAnswers="visibleAnswers"
+      />
     </div>
   </div>
 </template>
@@ -59,6 +72,7 @@ const selectedFiles = ref<string[]>([]); // Spread operator to copy the array
 const isRandom = ref<boolean>(true);
 const showIndex = ref<boolean>(false);
 const search = ref<string>(''); // Variable pour la recherche
+const visibleAnswers = ref<boolean>(false); // Variable pour la recherche
 
 // Fonction pour sélectionner un fichier
 function selectFile(file: string) {
@@ -193,7 +207,11 @@ onMounted(() => {
   display: block;
   text-align: center;
 }
-.show-index{
+.show-index {
+  margin-left: 8px;
+}
+
+.all-visible {
   margin-left: 8px;
 }
 
