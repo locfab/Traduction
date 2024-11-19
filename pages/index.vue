@@ -179,7 +179,6 @@ onMounted(() => {
   transition: all 0.3s ease;
   flex: 1 0 18%; /* Taille plus petite pour afficher plus de catégories */
   box-sizing: border-box;
-  align-items: center;
 }
 
 .category:hover {
