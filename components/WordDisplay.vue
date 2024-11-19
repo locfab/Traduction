@@ -25,8 +25,8 @@
         Indice
       </Button>
 
-      <span v-if="word.sound" @click="playSound" class="sound">
-      <i class="fas fa-volume-up" style="font-size: 2em; cursor: pointer; color: orangered;"></i>
+      <span v-if="word.sound" @click="playSound(false)" class="sound">
+      <i class="fas fa-volume-up" :style="{ fontSize: '2em', cursor: 'pointer', color: (isPlayed ? 'orange': 'black') }"></i>
     </span>
     </div>
     <div v-if="showIndex" class="ratio">
@@ -38,12 +38,11 @@
 <script setup lang="ts">
 import { ref, watch, computed } from 'vue'
 import Button from "~/components/input/Button.vue";
-import {filters} from "css-select";
 
 interface Response {
   trad: string,
   phonetic: string,
-  sound: string | undefined,  // Ajoutez undefined pour vérifier l'absence de son
+  sound: string | undefined,
 }
 
 const props = defineProps(['words', 'language', 'isRandom', 'showIndex', 'visibleAnswers'])
@@ -57,18 +56,25 @@ const hintButtonDisabled = ref(false)
 const currentWordIndex = ref(0)
 const word = computed(() => props.words[currentWordIndex.value])
 let audio: HTMLAudioElement | null = null
+const isPlayed = ref(false)
 
-function playSound() {
+function playSound(cut=false) {
   if (word.value && word.value.sound) {
-    audio = new Audio(word.value.sound)
-    audio.play()
+    if(!isPlayed.value && !cut){
+      audio = new Audio(word.value.sound)
+      audio.play()
+      isPlayed.value = true
+    } else {
+      audio?.pause()
+      audio = null
+      isPlayed.value = false
+    }
   }
 }
 
 
 function nextWord() {
-  audio?.pause()
-  audio = null
+  playSound(true)
   currentWordIndex.value = props.isRandom ? Math.floor(Math.random() * props.words.length) : (currentWordIndex.value + 1) % props.words.length
   questionText.value = props.language === 'fr' ? word.value.fr : word.value.ar
   const answer = {trad: props.language === 'fr' ? word.value.ar : word.value.fr, phonetic: word.value.phonetic, sound: word.value.sound}
