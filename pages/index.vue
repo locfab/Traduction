@@ -33,7 +33,7 @@
           v-model="visibleAnswers"
       />
     </div>
-    <div class="only sound">
+    <div class="only-sound">
       <CheckBox
           id="only-sound"
           label="Juste son"
@@ -214,6 +214,9 @@ onMounted(() => {
 }
 
 .all-visible {
+  margin-left: 8px;
+}
+.only-sound {
   margin-left: 8px;
 }
 
