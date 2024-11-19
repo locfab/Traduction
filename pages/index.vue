@@ -206,18 +206,12 @@ onMounted(() => {
   margin-left: 8px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 400px) {
   .container {
     width: 90%;
   }
   .category {
-    flex: 1 0 30%; /* Ajustement pour petits écrans */
-  }
-}
-
-@media (max-width: 400px) {
-  .category {
-    flex: 1 0 100%;
+    flex: 1 0 19%; /* Ajustement pour petits écrans */
   }
 }
 </style>
