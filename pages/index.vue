@@ -66,7 +66,7 @@ import CheckBox from "~/components/input/CheckBox.vue";
 
 const words = ref<Line[]>([]);
 const currentLanguage = ref<string>('fr');
-const files = ref<string[]>(["verb_A-I.csv", "verb_J-O.csv", "verb_P-R.csv", "verb_S-T.csv", "mots1.csv", "mots2.csv", "mots3.csv", "mots4.csv", "interrog.csv", "expr.csv", "expr2.csv", "jours-mois.csv"]);
+const files = ref<string[]>(["verb_A-I.csv", "verb_J-O.csv", "verb_P-R.csv", "verb_S-T.csv", "mots1.csv", "mots2.csv", "mots3.csv", "mots4.csv", "interrog.csv", "expr.csv", "expr2.csv", "jours-mois.csv", "son.csv"]);
 const selectedFiles = ref<string[]>([]);
 const isRandom = ref<boolean>(true);
 const showIndex = ref<boolean>(false);
@@ -90,10 +90,11 @@ function formatFileName(file: string): string {
   return file.replace('.csv', '');
 }
 
-interface Line {
+export interface Line {
   fr: string;
   phonetic: string;
   ar: string;
+  sound?: string; // Champ optionnel pour le son
 }
 
 async function loadCSV() {
@@ -111,8 +112,8 @@ async function loadCSV() {
 
 function parseCSV(data: any) : Line[] {
   return data.trim().split('\n').map((line: string) => {
-    const [fr, phonetic, ar] = line.trim().split(';');
-    return { fr: fr, phonetic: phonetic, ar: ar };
+    const [fr, phonetic, ar, sound] = line.trim().split(';');  // Ajouter le son ici
+    return { fr: fr, phonetic: phonetic, ar: ar, sound: sound || undefined }; // Si aucun son, laisser undefined
   });
 }
 
