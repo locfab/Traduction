@@ -1,8 +1,8 @@
-Oui;na'am;نَعَمْ
+Oui;na'am;نَعَمْ;https://audio-darija.s3.eu-west-3.amazonaws.com/na3am.mp3
 Si Dieu le veut;in cha' Allah;إِنْ شَاءَ ٱللَّٰه
 Comment vous appelez-vous ?;smitak? (homme), smitek? (femme);شْنُو سْمِيتْكْ؟
 Combien cela coûte-t-il ?;chhal tamane?;شْحَالْ ثَمَن؟
-Trop cher;ghali / ghali bezef;غَالِي/غَالِي بَزَّافْ
+cher (m), chère (f), chers (pl), chères (fpl);ghaali, ghaaliya, ghaaliyin, ghaaliyaat;غالي, غالية, غاليين, غاليات ;https://audio-darija.s3.eu-west-3.amazonaws.com/ghaali.mp3
 Bon marché;rkhiss;رْخِيصْ
 Je comprends;fhemteh;فْهَمْتْ
 Attendez !;tsanna !;تْسَنَّى!
@@ -17,7 +17,7 @@ Je suis français;ana fransi / ana fransiyya;أَنَا فْرَانْسِي / �
 Gauche;liser;لِيسَرْ
 Droite;yemin;يَمِينْ
 Aujourd'hui;al-youm;اَلْيُومْ
-Demain;ghadda;غَدَّا
+Demain;ghadda;غَدَّا;https://audio-darija.s3.eu-west-3.amazonaws.com/ghddaa.mp3
 Hier;al-bareh;اَلْبَارَحْ
 Jour;nahar;نْهَارْ
 Nuit;leil;لِيلْ
@@ -28,7 +28,7 @@ Aéroport;matâr;مَطَارْ
 Voiture;tomobil;طُومُوبِيلْ
 Dromadaire;jamal;جَمَلْ
 Banque;banka;بَنْكَة
-Marché;souq;سُوقْ
+Marché;souq,souaaq;سواق,سُوقْ;https://audio-darija.s3.eu-west-3.amazonaws.com/souq.mp3
 Mosquée;jamâ';جَامَعْ
 Palais;qsar;قْصَرْ
 Restaurant;mat'am;مَطْعَمْ
@@ -38,4 +38,5 @@ Police;bolîs;بُولِيسْ
 Plage;shatti';شَطِّيء
 Moto;moto;مُوطُو
 Voiture;tomobil;طُومُوبِيلْ
-Bus;kar;كَارْ
+car;kar;كَارْ
+autobus (m), autobus (pl);Tobis, Tobisaat;طوبيس, طوبيسات;https://audio-darija-old.s3.eu-west-3.amazonaws.com/Tobis-2.mp3

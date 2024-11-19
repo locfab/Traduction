@@ -1,10 +1,9 @@
 Oui;Iyyeh / ah / wah;إييه/ آه/واه
 Non;Lla;لا
 S’il te plaît;3afak;عافاك
-Merci;Shokran;شكرا
 Je t’aime;Kanbghik;كنبغيك
 Tu me manques;Twe77eshtek;توحشتك
-Beaucoup;Bezzaf;بزاف
+Beaucoup;Bezzaf;بزاف;https://audio-darija.s3.eu-west-3.amazonaws.com/bzaaf.mp3
 Un peu;Shwiya;شوية
 D’accord;Wakha;واخا
 Maintenant;Daba;دابا
@@ -17,9 +16,9 @@ Je veux...;Bghit…;بغيت…
 Je ne veux pas...;Ma bghitsh...;...ما بغيتش
 J’ai terminé;Salit;ساليت
 Je n’ai pas terminé;Ma salitsh;ما ساليتش
-Joli / Beau;Zwin;زوين
+Joli / Beau;Zwin;زوين;https://audio-darija.s3.eu-west-3.amazonaws.com/zwin.mp3
 Mauvais/Moche (Masculin singulier);Khayb;خايب
-Bon/Bien;Mezyan;مزيان
+bien/beau (m), bien/belle (f), bien/beaux (pl), bien/belles (fpl);mziyaan, mziyaana, mziyaanin, mziyaanaat;مزيان, مزيانة, مزيانين, مزيانات; https://audio-darija.s3.eu-west-3.amazonaws.com/mziyaan.mp3
 Excuse-moi;Sme7 lia (s’adressant au masculin) Sem7i lia (s’adressant au féminin);سمح ليا سمحي ليا
 Je ne parle pas arabe;Ma kanhdersh l3erbia;ما كنهضرش العربية
 Je ne comprends pas / Je n’ai pas compris;Ma fhemtsh;ما فهمتش
