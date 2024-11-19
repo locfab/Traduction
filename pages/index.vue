@@ -115,6 +115,7 @@ function parseCSV(data: any) : Line[] {
     const [fr, phonetic, ar, sound] = line.trim().split(';');  // Ajouter le son ici
     return { fr: fr, phonetic: phonetic, ar: ar, sound: sound || undefined }; // Si aucun son, laisser undefined
   });
+  //sound : https://tajinequiparle.com/prononciation-arabe-marocain/consonnes/
 }
 
 function normalizeString(str: string) {
