@@ -33,6 +33,13 @@
           v-model="visibleAnswers"
       />
     </div>
+    <div class="only sound">
+      <CheckBox
+          id="only-sound"
+          label="Juste son"
+          v-model="onlySound"
+      />
+    </div>
   </div>
   <div class="container">
     <h1>Apprendre le Darija</h1>
@@ -72,6 +79,7 @@ const isRandom = ref<boolean>(true);
 const showIndex = ref<boolean>(false);
 const search = ref<string>('');
 const visibleAnswers = ref<boolean>(false);
+const onlySound = ref<boolean>(false);
 
 function selectFile(file: string) {
   selectedFiles.value = isSelectedFile(file) ? selectedFiles.value.filter(sf => sf !== file) : [...selectedFiles.value, file];
@@ -123,12 +131,14 @@ function normalizeString(str: string) {
 }
 
 const filteredWords = computed(() => {
-  return words.value.filter(word => {
-    const normalizedSearch = normalizeString(search.value);
-    return normalizeString(word.fr).includes(normalizedSearch) ||
-        normalizeString(word.ar).includes(normalizedSearch) ||
-        normalizeString(word.phonetic).includes(normalizedSearch);
-  });
+  return words.value
+      .filter(word => !!word.sound)
+      .filter(word => {
+        const normalizedSearch = normalizeString(search.value);
+        return normalizeString(word.fr).includes(normalizedSearch) ||
+            normalizeString(word.ar).includes(normalizedSearch) ||
+            normalizeString(word.phonetic).includes(normalizedSearch);
+      });
 });
 
 onMounted(() => {
