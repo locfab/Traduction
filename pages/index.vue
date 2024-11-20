@@ -133,7 +133,7 @@ function normalizeString(str: string) {
 
 const filteredWords = computed(() => {
   return words.value
-      .filter(word => !!word.sound)
+      .filter(word => !onlySound.value || !!word.sound)
       .filter(word => {
         const normalizedSearch = normalizeString(search.value);
         return normalizeString(word.fr).includes(normalizedSearch) ||
