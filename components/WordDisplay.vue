@@ -45,7 +45,7 @@ interface Response {
   sound: string | undefined,
 }
 
-const props = defineProps(['words', 'language', 'isRandom', 'showIndex', 'visibleAnswers'])
+const props = defineProps(['words', 'language', 'isRandom', 'showIndex', 'visibleAnswers', 'onlySound'])
 const NULL_ANSWER_TEXT : Response = { trad: '', phonetic: '', sound: undefined }
 const questionText = ref('')
 const answerText = ref(NULL_ANSWER_TEXT)
@@ -106,6 +106,7 @@ function showHint() {
 watch(() => props.language, nextWord, { immediate: true })
 watch(() => props.words, nextWord, { immediate: true })
 watch(() => props.visibleAnswers, nextWord, { immediate: true })
+watch(() => props.onlySound, nextWord, { immediate: true })
 </script>
 
 <style scoped>

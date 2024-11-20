@@ -60,6 +60,7 @@
           :isRandom="isRandom"
           :showIndex="showIndex"
           :visibleAnswers="visibleAnswers"
+          :onlySound="onlySound"
       />
     </div>
   </div>
@@ -73,7 +74,7 @@ import CheckBox from "~/components/input/CheckBox.vue";
 
 const words = ref<Line[]>([]);
 const currentLanguage = ref<string>('fr');
-const files = ref<string[]>(["verb_A-I.csv", "verb_J-O.csv", "verb_P-R.csv", "verb_S-T.csv", "mots1.csv", "mots2.csv", "mots3.csv", "mots4.csv", "interrog.csv", "expr.csv", "expr2.csv", "jours-mois.csv", "son.csv"]);
+const files = ref<string[]>(["verbA-I.csv", "verbJ-O.csv", "verbP-R.csv", "verbS-T.csv", "mots1.csv", "mots2.csv", "mots3.csv", "mots4.csv", "interrog.csv", "expr.csv", "expr2.csv", "d-m-y.csv", "son.csv"]);
 const selectedFiles = ref<string[]>([]);
 const isRandom = ref<boolean>(true);
 const showIndex = ref<boolean>(false);
